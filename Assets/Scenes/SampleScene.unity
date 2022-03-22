@@ -1798,6 +1798,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92ab629fcf43b084b964aeb69888f2c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  checkScrool: 0
   buttonList: []
   numItems: 100
   contentPanel: {fileID: 1430561040}

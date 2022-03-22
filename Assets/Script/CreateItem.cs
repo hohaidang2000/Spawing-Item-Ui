@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using System.Linq;
 public class CreateItem : MonoBehaviour
 {
-   
+    public bool checkScrool=false;
     public List<Button> buttonList;
     public int numItems = 1000;
     //public Canvas contentCanvas;
@@ -47,7 +48,8 @@ public class CreateItem : MonoBehaviour
         {
             Vector3 getPo = needButton.transform.position;
             getPo.y += 10;
-
+ 
+          
             Debug.Log("ok");
             contentPanel.anchoredPosition =
             (Vector2)scrollRect.transform.InverseTransformPoint(contentPanel.position)
@@ -55,8 +57,20 @@ public class CreateItem : MonoBehaviour
         }
 
     }
+    public void GetBack()
+    {
+        Vector3 getPo = buttonList.First<Button>().transform.position;
+        getPo.y += 10;
+        contentPanel.anchoredPosition = (Vector2)scrollRect.transform.InverseTransformPoint(contentPanel.position) -
+            (Vector2)scrollRect.transform.InverseTransformPoint(getPo);
+    }
     void Update()
     {
-        
+        if (scrollRect.verticalNormalizedPosition <=0.001f)
+        {
+            GetBack();
+        }
+
+
     }
 }

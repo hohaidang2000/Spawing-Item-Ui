@@ -16,7 +16,7 @@ public class ButtonDecription : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        text.SetText("id: "+name + "  scale:" + scaleX + " "+ scaleX +" "+scaleZ);
+        text.SetText("id: "+name + "  scale:" + scaleX + " "+ scaleY +" "+scaleZ);
     }
     public void setScale(float x, float y, float z)
     {
@@ -35,7 +35,7 @@ public class ButtonDecription : MonoBehaviour
             cube.name = name;
             cube.transform.localScale = new Vector3(scaleX*10, scaleY*10, scaleZ*10);
             cube.transform.position = new Vector3(x, y, z);
-            cube.GetComponentInChildren<TextMeshPro>().SetText("id: " + name + "  scale:" + scaleX + " " + scaleX + " " + scaleZ);
+            cube.GetComponentInChildren<TextMeshPro>().SetText("id: " + name + "  scale:" + scaleX + " " + scaleY + " " + scaleZ);
             Collider[] coliders = Physics.OverlapSphere(cube.transform.position,(float) System.Math.Sqrt((scaleX * 10)* (scaleX * 10) + (scaleY * 10) * (scaleY * 10) + (scaleZ * 10) * (scaleZ * 10)));
             if(coliders.Length > 0)
             {
