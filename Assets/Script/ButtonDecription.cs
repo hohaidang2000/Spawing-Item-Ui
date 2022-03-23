@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class ButtonDecription : MonoBehaviour
@@ -12,6 +13,7 @@ public class ButtonDecription : MonoBehaviour
 
     public TextMeshProUGUI text;
     public Transform prefab;
+    public Toggle toggle;
     
     // Start is called before the first frame update
     void Start()
@@ -50,6 +52,7 @@ public class ButtonDecription : MonoBehaviour
                 break;
             }
         }
+        toggle.isOn = spawn;
 
     }
     // Update is called once per frame
