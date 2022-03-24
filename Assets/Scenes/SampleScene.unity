@@ -1646,7 +1646,7 @@ MonoBehaviour:
   button: {fileID: 5866733153305757290, guid: d9e880140194a0b42a957366548e8dc5, type: 3}
   scrollRect: {fileID: 1682176723}
   scrollingDown: 0
-  numItems: 10000
+  numItems: 1000
   headDestroy: 0
   bottomDestoy: 0
   timeRemaining: 1

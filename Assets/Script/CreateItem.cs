@@ -69,45 +69,51 @@ public class CreateItem : MonoBehaviour
     }
     public void BackgroundCreate()
     {
-        if (count < numItems)
-        {
+       
 
         
         for (int i = 0; i < maxCreate; i++)
         {
-            
-            count += 1;
-            float y = contentPanel.sizeDelta.y + button.GetComponent<RectTransform>().sizeDelta.y;
-            contentPanel.sizeDelta = new Vector2(contentPanel.sizeDelta.x, y);
-            Button temp = Instantiate(button);
-            temp.transform.SetParent(content.transform);
-            temp.GetComponent<ButtonDecription>().nameButton = count.ToString();
-            temp.GetComponent<ButtonDecription>().setScale(Random.Range(1, 10), Random.Range(1, 10), Random.Range(1, 10));
-            temp.name = count.ToString();
-            buttonList.Add(temp);
-            temp.gameObject.SetActive(false);
+            if (count < numItems)
+            {
+                count += 1;
+                float y = contentPanel.sizeDelta.y + button.GetComponent<RectTransform>().sizeDelta.y;
+                contentPanel.sizeDelta = new Vector2(contentPanel.sizeDelta.x, y);
+                Button temp = Instantiate(button);
+                temp.transform.SetParent(content.transform);
+                temp.GetComponent<ButtonDecription>().nameButton = count.ToString();
+                temp.GetComponent<ButtonDecription>().setScale(Random.Range(1, 10), Random.Range(1, 10), Random.Range(1, 10));
+                temp.name = count.ToString();
+                buttonList.Add(temp);
+                temp.gameObject.SetActive(false);
+            }
             //Debug.Log(temp.name);
         }
-        }
+        
     }
     public void Create()
     {
         
         for (int i = 0; i < maxCreate; i++)
         {
-            buttonList[bottomDestoy].gameObject.SetActive(true);
-            bottomDestoy += 1;
+            if (bottomDestoy < numItems)
+            {
+                buttonList[bottomDestoy].gameObject.SetActive(true);
+                bottomDestoy += 1;
+            }
         }
         
         for (int i = 0; i < maxCreate; i++)
         {
-            buttonList[headDestroy].gameObject.SetActive(false);
-            headDestroy += 1;
+
+                buttonList[headDestroy].gameObject.SetActive(false);
+                headDestroy += 1;
+           
         }
+        Debug.Log(bottomDestoy);
         Vector2 po = contentPanel.anchoredPosition;
         int sum = content.transform.childCount;
-       
-        po.y = po.y-90;
+        po.y = po.y - 90 ;
         contentPanel.anchoredPosition = po;
 
 
@@ -141,7 +147,7 @@ public class CreateItem : MonoBehaviour
         //buttonList[bottomDestoy].gameObject.SetActive(false);
         //buttonList[headDestroy].gameObject.SetActive(true);
         Vector2 po = contentPanel.anchoredPosition;
-        po.y = po.y - 30;
+        po.y = po.y - 90;
         contentPanel.anchoredPosition = po;
     }
 
