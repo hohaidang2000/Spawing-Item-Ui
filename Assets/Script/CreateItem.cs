@@ -24,7 +24,7 @@ public class CreateItem : MonoBehaviour
     private int maxCreateBegin = 10;
     public float timeRemaining = 1;
     public int buttonDestroyed = 100;
-
+    public Button searchOne;
     private float lastScroll;
     private float currentScroll;
 
@@ -93,7 +93,12 @@ public class CreateItem : MonoBehaviour
     }
     public void Create()
     {
-        
+        if (searchOne)
+        {
+            searchOne.gameObject.SetActive(false);
+            searchOne = null;
+        }
+        Debug.Log(headDestroy);
         for (int i = 0; i < maxCreate; i++)
         {
             if (bottomDestoy < numItems)
@@ -111,6 +116,7 @@ public class CreateItem : MonoBehaviour
            
         }
         Debug.Log(bottomDestoy);
+        
         Vector2 po = contentPanel.anchoredPosition;
         int sum = content.transform.childCount;
         po.y = po.y - 90 ;
@@ -120,6 +126,12 @@ public class CreateItem : MonoBehaviour
     }
     public void DeCreate()
     {
+        if (searchOne)
+        {
+            searchOne.gameObject.SetActive(false);
+            searchOne = null;
+        }
+            
         
         for (int i = 0; i < maxCreate; i++)
         {
@@ -153,20 +165,31 @@ public class CreateItem : MonoBehaviour
 
     public void Search(string target)
     {
-
-
-        Transform needButton = content.transform.Find(target);
-        if (needButton != null)
+        if (searchOne)
         {
-            Vector3 getPo = needButton.transform.position;
-            getPo.y += 10;
+            searchOne.gameObject.SetActive(false);
+            searchOne = null;
+        }
 
-
-            Debug.Log("ok");
+        if (buttonList[System.Int32.Parse(target)])
+        {
+            searchOne = buttonList[System.Int32.Parse(target)-1];
+            searchOne.gameObject.SetActive(true);
+            int mono = System.Int32.Parse(target) % 3;
+            Vector3 getPo = searchOne.transform.position;
+            getPo.y += 60;
+            Debug.Log(System.Int32.Parse(target));
             contentPanel.anchoredPosition =
             (Vector2)scrollRect.transform.InverseTransformPoint(contentPanel.position)
             - (Vector2)scrollRect.transform.InverseTransformPoint(getPo);
         }
+     
+            
+
+
+            
+
+      
 
     }
     public void GetBack()
