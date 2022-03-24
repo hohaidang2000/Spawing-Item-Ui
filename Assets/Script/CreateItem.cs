@@ -117,27 +117,32 @@ public class CreateItem : MonoBehaviour
         
         for (int i = 0; i < maxCreate; i++)
         {
-            if(bottomDestoy < 0)
+            if (bottomDestoy > maxCreateBegin)
             {
-                bottomDestoy = 0;
+                bottomDestoy -= 1; ;
+                buttonList[bottomDestoy].gameObject.SetActive(false);
             }
-            buttonList[bottomDestoy].gameObject.SetActive(false);
-            bottomDestoy -= 1;
+            
+            
 
         }
         for (int i = 0; i < maxCreate; i++)
         {
+            if (headDestroy > 0)
+            {
+                headDestroy -= 1;
+                buttonList[headDestroy].gameObject.SetActive(true);
+            }
+            
+         
 
-            buttonList[headDestroy].gameObject.SetActive(true);
-            headDestroy -= 1;
         }
-        buttonList[bottomDestoy].gameObject.SetActive(false);
-        buttonList[headDestroy].gameObject.SetActive(true);
+       
+        //buttonList[bottomDestoy].gameObject.SetActive(false);
+        //buttonList[headDestroy].gameObject.SetActive(true);
         Vector2 po = contentPanel.anchoredPosition;
-        po.y = po.y - 90;
+        po.y = po.y - 30;
         contentPanel.anchoredPosition = po;
-
-
     }
 
     public void Search(string target)
