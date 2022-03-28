@@ -4,22 +4,22 @@ using UnityEngine;
 
 public class UIToggle : MonoBehaviour
 {
-    public bool active;
+    public bool isactive;
     private void Start()
     {
-        active = gameObject.active;
+        isactive = gameObject.active;
     }
     public void Toogle()
     {
-        if (active)
+        if (isactive)
         {
-            active = false;
+            isactive = false;
            
         }
         else
         {
-            active = true;
+            isactive = true;
         }
-        gameObject.SetActive(active);
+        gameObject.SetActive(isactive);
     }
 }
