@@ -3429,7 +3429,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 968775945}
   m_Direction: 0
   m_Value: 0
-  m_Size: 0.99999225
+  m_Size: 0.99999577
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -5755,7 +5755,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.00056267064, y: 0}
+  m_AnchoredPosition: {x: 0.00088124536, y: 0}
   m_SizeDelta: {x: -0.026208878, y: 700}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &2015975598
@@ -5945,6 +5945,18 @@ MonoBehaviour:
       - m_Target: {fileID: 1637655583}
         m_TargetAssemblyTypeName: SubcribeScript, Assembly-CSharp
         m_MethodName: Choosen
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 152926763}
+        m_TargetAssemblyTypeName: ImageChoosingScript, Assembly-CSharp
+        m_MethodName: Ready
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

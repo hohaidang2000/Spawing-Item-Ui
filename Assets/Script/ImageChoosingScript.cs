@@ -15,6 +15,13 @@ public class ImageChoosingScript : MonoBehaviour
         }
         choosingButton = button;
     }
+    public void Ready()
+    {
+        if (choosingButton)
+        {
+            gameObject.SetActive(false);
+        }
+    }
     void Start()
     {
         
