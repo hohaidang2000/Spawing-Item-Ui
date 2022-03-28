@@ -16,6 +16,8 @@ public class CreateItem : MonoBehaviour
     public ScrollRect scrollRect;
     public bool scrollingDown = false;
 
+    public int index = 0;
+    public int current = 0;
     public int numItems = 1000;
     private int count = 0;
     public int headDestroy = 0;
@@ -47,7 +49,7 @@ public class CreateItem : MonoBehaviour
 
     }
 
-    // Update is called once per frame
+  
     public void FirstCreate()
     {
 
@@ -72,7 +74,7 @@ public class CreateItem : MonoBehaviour
        
 
         
-        for (int i = 0; i < maxCreate; i++)
+        for (int i = 0; i < maxCreate ; i++)
         {
             if (count < numItems)
             {
@@ -80,7 +82,7 @@ public class CreateItem : MonoBehaviour
                 float y = contentPanel.sizeDelta.y + button.GetComponent<RectTransform>().sizeDelta.y;
                 contentPanel.sizeDelta = new Vector2(contentPanel.sizeDelta.x, y);
                 Button temp = Instantiate(button);
-                temp.transform.SetParent(content.transform);
+                //temp.transform.SetParent(content.transform);
                 temp.GetComponent<ButtonDecription>().nameButton = count.ToString();
                 temp.GetComponent<ButtonDecription>().setScale(Random.Range(1, 10), Random.Range(1, 10), Random.Range(1, 10));
                 temp.name = count.ToString();
@@ -91,30 +93,117 @@ public class CreateItem : MonoBehaviour
         }
         
     }
+    /*
+    void RepeatListRe()
+    {
+        if (searchOne)
+        {
+            searchOne.gameObject.SetActive(false);
+            searchOne.gameObject.transform.SetParent(null);
+            searchOne = null;
+        }
+
+        for (int i = 0; i < maxCreate; i++)
+        {
+            GameObject tempLast = content.transform.GetChild(content.transform.childCount -i -1).gameObject;
+            tempLast.SetActive(false);
+            tempLast.transform.parent = null;
+
+        }
+        for (int i = 0; i < maxCreate; i++)
+        {
+            if (current < 0)
+            {
+                current = buttonList.Count<Button>() - 1;
+            }
+            Button tempFront = buttonList[current];
+            current -= 1;
+
+            tempFront.transform.SetParent(content.transform);
+            tempFront.gameObject.SetActive(true);
+            tempFront.transform.SetAsFirstSibling();
+            tempFront.transform.localPosition = new Vector3(0, 0, 0);
+            Vector3 getPo = tempFront.transform.position;
+            getPo.y += 90;
+            contentPanel.anchoredPosition =
+               (Vector2)scrollRect.transform.InverseTransformPoint(contentPanel.position)
+               - (Vector2)scrollRect.transform.InverseTransformPoint(getPo);
+        }
+    }
+
+    void RepeatList() {
+        if (searchOne)
+        {
+            searchOne.gameObject.SetActive(false);
+            searchOne.gameObject.transform.SetParent(null);
+            searchOne = null;
+        }
+        for (int i = 0; i < maxCreate; i++)
+        {
+            if (index >= count)
+            {
+                index = 0;
+            }
+            Button tempFront = buttonList[index];
+            index += 1;
+
+            tempFront.transform.SetParent(content.transform);
+            tempFront.gameObject.SetActive(true);
+            tempFront.transform.SetAsLastSibling();
+            tempFront.transform.localPosition = new Vector3(0, 0, 0);
+            Vector3 getPo = tempFront.transform.position;
+            getPo.y += 90;
+            contentPanel.anchoredPosition =
+               (Vector2)scrollRect.transform.InverseTransformPoint(contentPanel.position)
+               - (Vector2)scrollRect.transform.InverseTransformPoint(getPo);
+        }
+        for (int i = 0; i < maxCreate; i++)
+        {
+            GameObject tempLast = content.transform.GetChild(0).gameObject;
+            tempLast.SetActive(false);
+            tempLast.transform.parent = null;
+
+        }
+
+    }
+    
     public void Create()
     {
         if (searchOne)
         {
             searchOne.gameObject.SetActive(false);
+            searchOne.gameObject.transform.SetParent(null);
             searchOne = null;
         }
-        Debug.Log(headDestroy);
-        for (int i = 0; i < maxCreate; i++)
-        {
-            if (bottomDestoy < numItems)
+        if (count < numItems) { 
+            
+            Debug.Log(headDestroy);
+            for (int i = 0; i < maxCreate; i++)
             {
-                buttonList[bottomDestoy].gameObject.SetActive(true);
-                bottomDestoy += 1;
+                current += 1;
+                if (bottomDestoy < numItems)
+                {
+                    buttonList[bottomDestoy].gameObject.SetActive(true);
+                    buttonList[headDestroy].gameObject.transform.SetParent(contentPanel);
+                    buttonList[headDestroy].gameObject.transform.SetAsLastSibling();
+                    bottomDestoy += 1;
+                }
+            }
+        
+            for (int i = 0; i < maxCreate; i++)
+            {
+
+                    buttonList[headDestroy].gameObject.SetActive(false);
+                    buttonList[headDestroy].gameObject.transform.SetParent(null);
+                    headDestroy += 1;
+           
             }
         }
-        
-        for (int i = 0; i < maxCreate; i++)
+        else
         {
-
-                buttonList[headDestroy].gameObject.SetActive(false);
-                headDestroy += 1;
-           
+            RepeatList();
         }
+
         Debug.Log(bottomDestoy);
         
         Vector2 po = contentPanel.anchoredPosition;
@@ -122,23 +211,26 @@ public class CreateItem : MonoBehaviour
         po.y = po.y - 90 ;
         contentPanel.anchoredPosition = po;
 
-
+    
     }
+    
     public void DeCreate()
     {
         if (searchOne)
         {
             searchOne.gameObject.SetActive(false);
+            searchOne.gameObject.transform.SetParent(null);
             searchOne = null;
         }
-            
-        
-        for (int i = 0; i < maxCreate; i++)
+        if (count < numItems)
+        {
+            for (int i = 0; i < maxCreate; i++)
         {
             if (bottomDestoy > maxCreateBegin)
             {
                 bottomDestoy -= 1; ;
                 buttonList[bottomDestoy].gameObject.SetActive(false);
+                buttonList[bottomDestoy].gameObject.transform.SetParent(null);
             }
             
             
@@ -150,6 +242,8 @@ public class CreateItem : MonoBehaviour
             {
                 headDestroy -= 1;
                 buttonList[headDestroy].gameObject.SetActive(true);
+                buttonList[headDestroy].gameObject.transform.SetParent(content.transform);
+                    buttonList[headDestroy].gameObject.transform.SetAsFirstSibling();
             }
             
          
@@ -161,50 +255,68 @@ public class CreateItem : MonoBehaviour
         Vector2 po = contentPanel.anchoredPosition;
         po.y = po.y - 90;
         contentPanel.anchoredPosition = po;
+        }
+        else
+        {
+            RepeatListRe();
+        }
     }
 
-    public void Search(string target)
-    {
-        if (searchOne)
-        {
-            searchOne.gameObject.SetActive(false);
-            searchOne = null;
-        }
-
-        if (buttonList[System.Int32.Parse(target)])
-        {
-            searchOne = buttonList[System.Int32.Parse(target)-1];
-            searchOne.gameObject.SetActive(true);
-            int mono = System.Int32.Parse(target) % 3;
-            Vector3 getPo = searchOne.transform.position;
-            getPo.y += 60;
-            Debug.Log(System.Int32.Parse(target));
-            contentPanel.anchoredPosition =
-            (Vector2)scrollRect.transform.InverseTransformPoint(contentPanel.position)
-            - (Vector2)scrollRect.transform.InverseTransformPoint(getPo);
-        }
-     
-            
-
-
-            
-
-      
-
-    }
     public void GetBack()
     {
         count = -1;
     }
 
 
+    */
 
+    public void Search(string target)
+    {
+
+        if (searchOne)
+        {
+            searchOne.gameObject.SetActive(false);
+            searchOne = null;
+        }
+
+        if (buttonList.Find(x => x.name == target))
+        {
+            searchOne = buttonList.Find(x => x.name == target);
+            searchOne.gameObject.SetActive(true);
+            int mono = System.Int32.Parse(target) % 3;
+            searchOne.gameObject.transform.SetParent(content.transform);
+            searchOne.transform.SetAsFirstSibling();
+            searchOne.transform.localPosition = new Vector3(0, 0, 0);
+            Vector3 getPo = searchOne.transform.position;
+            //getPo.y += 30;
+            Debug.Log(System.Int32.Parse(target));
+            contentPanel.anchoredPosition =
+            (Vector2)scrollRect.transform.InverseTransformPoint(contentPanel.position)
+            - (Vector2)scrollRect.transform.InverseTransformPoint(getPo);
+        }
+
+
+    }
+    void MovingOnListAhead()
+    {
+
+    }
+    void MovingOnListBelow()
+    {
+        for (int i = 0; i < maxCreate; i++)
+        {
+            GameObject tempLast = content.transform.GetChild(0).gameObject;
+            tempLast.SetActive(false);
+            tempLast.transform.parent = null;
+
+        }
+    }
     void Update()
     {
 
         if(count < numItems)
         {
-            
+            BackgroundCreate();
         }
 
         /*
@@ -230,17 +342,18 @@ public class CreateItem : MonoBehaviour
              }
         }
         */
+
         float mouse = Input.mouseScrollDelta.y;
         if (mouse > 0)
         {
-            DeCreate();
+            MovingOnListAhead();
             lastScroll = currentScroll;
             scrollingDown = false;
         }
         else if (mouse < 0)
         {
-            BackgroundCreate();
-            Create();
+
+            MovingOnListBelow();
             lastScroll = currentScroll;
             scrollingDown = true;
         }
