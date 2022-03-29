@@ -32,6 +32,7 @@ public class SubcribeScript : MonoBehaviour
     }
     public void Accept()
     {
+        
         string nameString = nameInput.text;
         string dicriptionString = decritionInput.text;
         string ruleString = ruleInput.text;
@@ -89,6 +90,7 @@ public class SubcribeScript : MonoBehaviour
         guildButton.onClick.AddListener(() => Edit(button));
         destroyButton = guildButton;
         acceptButtenText.SetText("Create New");
+        nameInput.interactable = true;
     }
     public void Exit()
     {
