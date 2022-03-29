@@ -8,6 +8,7 @@ public class SubcribeScript : MonoBehaviour
 {
     public GameObject content;
     public GameObject avatar;
+    public GameObject warning;
     public Sprite choosenImage;
     public Button guildButton;
     public Button destroyButton;
@@ -54,6 +55,11 @@ public class SubcribeScript : MonoBehaviour
             gameObject.SetActive(false);
             DefaultCanvas.SetActive(true);
 
+        }
+        else
+        {
+            warning.SetActive(true);
+            gameObject.transform.GetChild(1).GetComponent<CanvasGroup>().interactable = false;
         }
     }
     public void Edit(Button button)
