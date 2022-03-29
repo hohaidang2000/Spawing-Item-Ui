@@ -19,6 +19,7 @@ public class ImageChoosingScript : MonoBehaviour
     {
         if (choosingButton)
         {
+            choosingButton.transform.GetChild(0).gameObject.SetActive(false);
             gameObject.SetActive(false);
         }
     }
