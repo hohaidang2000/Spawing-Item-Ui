@@ -4819,9 +4819,7 @@ MonoBehaviour:
   content: {fileID: 2015975596}
   avatar: {fileID: 1633175176}
   warning: {fileID: 548080817}
-  choosenImage: {fileID: 0}
-  guildButton: {fileID: 1283577720166054407, guid: e3676221406927940852843b3aa9253e, type: 3}
-  destroyButton: {fileID: 0}
+  acceptButtenText: {fileID: 1004753340}
   nameInput: {fileID: 863878899}
   decritionInput: {fileID: 1861670109}
   ruleInput: {fileID: 521736989}

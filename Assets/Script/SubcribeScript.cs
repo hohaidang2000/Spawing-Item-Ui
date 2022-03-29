@@ -9,9 +9,10 @@ public class SubcribeScript : MonoBehaviour
     public GameObject content;
     public GameObject avatar;
     public GameObject warning;
-    public Sprite choosenImage;
-    public Button guildButton;
-    public Button destroyButton;
+    Sprite choosenImage;
+    Button guildButton;
+    Button destroyButton;
+    public TextMeshProUGUI acceptButtenText;
     public TMP_InputField nameInput;
     public TMP_InputField decritionInput;
     public TMP_InputField ruleInput;
@@ -47,6 +48,7 @@ public class SubcribeScript : MonoBehaviour
             name.GetComponent<TextMeshProUGUI>().SetText(nameString);
             dicription.GetComponent<TextMeshProUGUI>().SetText(dicriptionString);
             rule.GetComponent<TextMeshProUGUI>().SetText(ruleString);
+            nameInput.interactable = true;
             avatarChoose = false;
             nameInput.SetTextWithoutNotify(null);
             decritionInput.SetTextWithoutNotify(null);
@@ -76,15 +78,17 @@ public class SubcribeScript : MonoBehaviour
         Transform dicription = panel.transform.GetChild(1);
         Transform rule = panel.transform.GetChild(2);
         nameInput.SetTextWithoutNotify( name.GetComponent<TextMeshProUGUI>().text);
+        nameInput.interactable = false;
         decritionInput.SetTextWithoutNotify(dicription.GetComponent<TextMeshProUGUI>().text);
         ruleInput.SetTextWithoutNotify(rule.GetComponent<TextMeshProUGUI>().text);
-        
+        acceptButtenText.SetText("Confirm");
     }
     public void FirstCreate(Button button)
     {
         guildButton = button;
         guildButton.onClick.AddListener(() => Edit(button));
         destroyButton = guildButton;
+        acceptButtenText.SetText("Create New");
     }
     public void Exit()
     {
