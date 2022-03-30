@@ -20,8 +20,9 @@ public class CreateItem : MonoBehaviour
     public int current = 0;
     public int numItems = 1000;
     private int count = 0;
-    public int headDestroy = 0;
-    public int bottomDestoy = 0;
+    private int mouseScroll = 0;
+    private int headDestroy = 0;
+    private int bottomDestoy = 0;
     private int maxCreate = 3;
     private int maxCreateBegin = 10;
     public float timeRemaining = 1;
@@ -29,6 +30,7 @@ public class CreateItem : MonoBehaviour
     public Button searchOne;
     private float lastScroll;
     private float currentScroll;
+    GameObject[] contentarray;
 
     // Start is called before the first frame update
     void Start()
@@ -299,7 +301,56 @@ public class CreateItem : MonoBehaviour
     }
     void MovingOnListAhead()
     {
+       
+        for (int i = 0; i < maxCreate; i++)
+        {
 
+            headDestroy -= 1;
+            if (headDestroy <= 0) {
+                headDestroy = 0;
+                Button temp = buttonList[headDestroy];
+                temp.transform.SetParent(content.transform);
+                temp.gameObject.SetActive(true);
+                temp.transform.SetAsFirstSibling();
+                if(content.transform.childCount > 13)
+                {
+                    GameObject tempLast = content.transform.GetChild(content.transform.childCount - 1).gameObject;
+                    tempLast.SetActive(false);
+                    tempLast.transform.parent = null;
+                    bottomDestoy -= 1;
+                    if (bottomDestoy < 0)
+                    {
+                        bottomDestoy = count;
+                    }
+                }
+
+            }
+            else
+            {
+                bottomDestoy -= 1;
+                if (bottomDestoy < 0)
+                {
+                    bottomDestoy = count;
+                }
+                if (headDestroy < 0)
+                {
+                    headDestroy = count;
+                }
+                Button temp = buttonList[headDestroy];
+                temp.transform.SetParent(content.transform);
+                temp.gameObject.SetActive(true);
+                temp.transform.SetAsFirstSibling();
+                GameObject tempLast = content.transform.GetChild(content.transform.childCount - 1).gameObject;
+                tempLast.SetActive(false);
+                tempLast.transform.parent = null;
+            }
+
+        }
+        Vector2 getPo = content.transform.position;
+        getPo.y += 30;
+        contentPanel.anchoredPosition =
+       (Vector2)scrollRect.transform.InverseTransformPoint(contentPanel.position)
+        - (Vector2)scrollRect.transform.InverseTransformPoint(getPo);
     }
     void MovingOnListBelow()
     {
@@ -308,8 +359,28 @@ public class CreateItem : MonoBehaviour
             GameObject tempLast = content.transform.GetChild(0).gameObject;
             tempLast.SetActive(false);
             tempLast.transform.parent = null;
+            headDestroy += 1;
+            bottomDestoy += 1;
+            if(bottomDestoy == count)
+            {
+                bottomDestoy = 0;
+            }
+            if(headDestroy == count)
+            {
+                headDestroy = 0;
+            }
+            Button temp = buttonList[bottomDestoy];
+            temp.transform.SetParent(content.transform);
+            temp.gameObject.SetActive(true);
+           
 
         }
+        Vector2 getPo = content.transform.position;
+        getPo.y -= 30;
+        contentPanel.anchoredPosition =
+       (Vector2)scrollRect.transform.InverseTransformPoint(contentPanel.position)
+        - (Vector2)scrollRect.transform.InverseTransformPoint(getPo);
+
     }
     void Update()
     {
@@ -346,16 +417,19 @@ public class CreateItem : MonoBehaviour
         float mouse = Input.mouseScrollDelta.y;
         if (mouse > 0)
         {
-            MovingOnListAhead();
-            lastScroll = currentScroll;
-            scrollingDown = false;
+            if (mouseScroll > 0)
+            {
+                MovingOnListAhead();
+                lastScroll = currentScroll;
+                
+                mouseScroll -= 1;
+            }
         }
         else if (mouse < 0)
         {
-
             MovingOnListBelow();
             lastScroll = currentScroll;
-            scrollingDown = true;
+            mouseScroll += 1;
         }
 
 
